@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贺卡传送</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>传送贺卡给朋友</h1>
+    </header>
+
+    <section class="card-form">
+        <h2>选择贺卡并填写信息</h2>
+        <form id="cardForm">
+            <label for="recipient">收件人：</label>
+            <input type="text" id="recipient" name="recipient" required>
+
+            <label for="message">贺卡信息：</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <label for="card">选择贺卡样式：</label>
+            <select id="card" name="card">
+                <option value="birthday">生日贺卡</option>
+                <option value="newYear">新年贺卡</option>
+                <option value="wedding">婚礼贺卡</option>
+            </select>
+
+            <button type="submit">发送贺卡</button>
+        </form>
+    </section>
+
+    <section id="sentCards" class="sent-cards">
+        <h2>已发送的贺卡</h2>
+        <ul id="cardsList">
+            <!-- 已发送贺卡列表 -->
+        </ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.card-form {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.sent-cards {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e9e9e9;
+    border-radius: 4px;
+}
+document.getElementById("cardForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // 获取表单数据
+    const recipient = document.getElementById("recipient").value;
+    const message = document.getElementById("message").value;
+    const cardStyle = document.getElementById("card").value;
+
+    // 创建贺卡对象
+    const card = {
+        recipient: recipient,
+        message: message,
+        cardStyle: cardStyle
+    };
+
+    // 更新已发送的贺卡列表
+    const cardsList = document.getElementById("cardsList");
+    const listItem = document.createElement("li");
+    listItem.textContent = `${recipient} - ${cardStyle} - 信息: ${message}`;
+    cardsList.appendChild(listItem);
+
+    // 清空表单
+    document.getElementById("cardForm").reset();
+});
